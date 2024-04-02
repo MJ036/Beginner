@@ -1,0 +1,36 @@
+#ifndef __HW4_HH__
+#define __HW4_HH__
+
+#include "log4cpp/Category.hh"
+#include <string>
+#include <iostream>
+
+using std::string;
+
+#define addPrefix(msg) string("[").append(__FILE__)\
+                              .append(":").append(__func__)\
+                              .append(":").append(std::to_string(__LINE__))\
+                              .append("]").append(msg).c_str()
+#define LogWarn(msg) Mylogger::getInstance()->warn(addPrefix(msg))
+#define LogError(msg) Mylogger::getInstance()->error(addPrefix(msg))
+
+class Mylogger
+{
+public:
+    void warn(const char *msg);
+    void error(const char *msg);
+    void debug(const char *msg);
+    void info(const char *msg);
+
+    static Mylogger *getInstance();
+    static void destroy();
+
+private:
+    Mylogger();
+    ~Mylogger();
+
+    log4cpp::Category & _mycat;
+    static Mylogger * _pInstance;
+};
+
+#endif
