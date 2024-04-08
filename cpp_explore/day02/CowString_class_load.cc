@@ -6,6 +6,27 @@ using std::endl;
 
 class String
 {
+    //char代理
+    class CharProxy
+    {
+    public:
+        CharProxy(String &self, size_t idx)
+            :_self(self),_idx(idx)
+            {}
+        
+        char &operator=(const char &ch);
+
+        operator char()
+        {
+            cout << "operator char()" << endl;
+            return _self._pstr[_idx];
+        }
+
+    private:
+            String & _self;
+            size_t _idx;
+    };
+    //String的成员函数
 public:
     String()
         :_pstr(new char[5]() + 4)
@@ -36,21 +57,8 @@ public:
         return *this;
     }
 
-    char &operator[](size_t idx){
-        if(idx < size()){
-            if(getRefCount() > 1){
-                char *ptmp = new char[size() + 5]() + 4;
-                strcpy(ptmp,_pstr);
-                decreaseRefCount();
-                _pstr = ptmp;
-                increaseRefCount();
-            }
-            return _pstr[idx];
-        }
-        else{
-            static char charnull = '\0';
-            return charnull;
-        }
+    CharProxy operator[](size_t idx){
+        return CharProxy(*this,idx);
     }
 
     ~String()
@@ -97,7 +105,7 @@ private:
     }
 
     friend std::ostream &operator<<(std::ostream &os,const String &rhs);
-
+//String的数据成员
 private:
     char *_pstr;
 };
@@ -108,6 +116,25 @@ std::ostream &operator<<(std::ostream &os, const String &rhs){
         os << rhs._pstr;
     }
     return os;
+}
+
+char & String::CharProxy::operator=(const char & ch){
+    
+        if(_idx < _self.size()){
+            if(_self.getRefCount() > 1){
+                char *ptmp = new char[_self.size() + 5]() + 4;
+                strcpy(ptmp,_self._pstr);
+                _self.decreaseRefCount();
+                _self._pstr = ptmp;
+                _self.increaseRefCount();
+            }
+            _self._pstr[_idx] = ch;
+            return _self._pstr[_idx];
+        }
+        else{
+            static char charnull = '\0';
+            return charnull;
+        }
 }
 
 
