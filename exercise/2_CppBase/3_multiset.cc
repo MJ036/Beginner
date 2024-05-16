@@ -33,6 +33,21 @@ void test_multiset(){
         cout << "该元素存在multiset中 " << *it << endl; 
     }
 
+    cout << "bound" << endl;
+    it = number.lower_bound(3);
+    cout << "*it = " << *it << endl;
+    auto it2 = number.upper_bound(3);
+    cout << "*it2 = " << *it2 << endl;
+
+    pair<multiset<int>::iterator,multiset<int>::iterator> ret = number.equal_range(3);
+    while(ret.first != ret.second){
+        cout << *ret.first << " ";
+        ++ret.first;
+    }
+    cout << endl;
+
+
+
     cout << endl << "insert操作"<< endl;
     number.insert(7);
     display(number);
@@ -42,6 +57,13 @@ void test_multiset(){
     number.insert(vec.begin(), vec.end());
     display(number);    
 
+    cout << endl << "erase操作" << endl;
+    it = number.begin();
+    ++it;
+    ++it;
+    cout << "*it = " << *it << endl;
+    number.erase(it);
+    display(number);
 }
 
 
