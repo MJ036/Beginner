@@ -88,29 +88,52 @@ public:
     HeapSort(T *arr,size_t size,Compare);
     void heapAdjust(size_t,size_t,Compare&);
     void sort(Compare&);
+    void print();
 private:
     vector<T> _vec;
 };
 
 template<class T,class Compare>
-HeapSort<T,Compare>::HeapSort(T *arr,size_t size,Compare){
+HeapSort<T,Compare>::HeapSort(T *arr,size_t size,Compare com){
     for(size_t i = 0; i < size; ++i){
         _vec.push_back(arr[i]);
     }
 
-    for(int i = size/2 -1; ; ){
+    for(int i = size/2 -1; i>=0 ;i-- ){
+        heapAdjust(i,size,com);
+    }
+    swap(arr[0],arr[size - 1]);
+    sort(com);
+}
 
+template<class T,class Compare>
+void HeapSort<T,Compare>::heapAdjust(size_t adjustpos,size_t arrlen,Compare &com){
+    size_t dad = adjustpos;
+    size_t son = 2 * dad + 1;
+    
+    while(son < arrlen){
+        if(son + 1 < arrlen && com(_vec[son],_vec[son+1])){
+            ++son;
+        }
+        if(com(_vec[dad],_vec[son])){
+            swap(_vec[dad],_vec[son]);
+            dad = son;
+            son = 2 * dad + 1;
+        }
+        else{
+            break;
+        }
     }
 }
 
-
-
-
 template <class T,typename Compare>
 void HeapSort<T,Compare>::sort(Compare &com){
-
+    size_t size = _vec.size();
+    for(size_t i = size; i > 1 ; --i){
+        heapAdjust(0,i,com);
+        swap(_vec[0],_vec[i - 1]);
+    }
 }
-
 
 template<class T,class Compare>
 void HeapSort<T,Compare>::print(){
@@ -123,6 +146,17 @@ void HeapSort<T,Compare>::print(){
 
 int main()
 {
+    int arr[10] = {1, 2, 6, 3, 4, 8, 5, 7, 9, 10};
+    HeapSort<int> hs(arr, 10, std::less<int>());
+    hs.print();
+
+    cout << endl;
+    Point parr[5] = {{1,2}, {3,4}, {-1,2}, {4,5}, {2,5}};
+
+    HeapSort<Point> hsPt(parr, 5, std::less<Point>());
+    hsPt.print();
+
+    return 0;
     return 0;
 }
 
