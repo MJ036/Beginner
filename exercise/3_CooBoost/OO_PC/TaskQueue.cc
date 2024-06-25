@@ -3,7 +3,7 @@
 TaskQueue::TaskQueue(size_t queSize)
     :_queSize(queSize)
      ,_que()
-     ,_mutex()
+     /* ,_mutex() */
      ,_notFull(_mutex)
      ,_notEmpty(_mutex)
 {}

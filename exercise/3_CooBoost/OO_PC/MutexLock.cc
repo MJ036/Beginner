@@ -1,8 +1,10 @@
 #include "MutexLock.h"
 #include <stdio.h>
+#include <iostream>
 
 MutexLock::MutexLock(){
     int ret = pthread_mutex_init(&_mutex,nullptr);
+    std::cout << "mutex has being init" << std::endl;
     if(ret){
         perror("pthread_mutex_init");
         return;

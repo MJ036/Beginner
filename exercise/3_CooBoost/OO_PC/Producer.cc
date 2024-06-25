@@ -22,7 +22,7 @@ void Producer::run(){
     while(cnt--){
         int number = rand() % 100;
         _taskQue.push(number);
-        cout << ">> Producer produce number = " << number<< endl;
+        cout << ">> Producer produce number = " << number << endl;
         sleep(1);
     }
 }
