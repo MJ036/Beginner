@@ -77,6 +77,13 @@ void test_1_20(){
 
 }
 
+void test_1_21(){
+    Sales_item item1,item2;
+    cin >> item1 >> item2;
+    cout << item1+item2 << endl;
+
+}
+
 void test_1_22(){
     Sales_item curitem,item;
     if(cin >> curitem){
@@ -92,6 +99,23 @@ void test_1_22(){
         cout << curitem;
     }
     else{
+        cerr << "no data" << endl;
+    }
+}
+
+void test1_22_again(){
+    Sales_item curitem,item;
+    if(cin >> curitem){
+        while(cin >> item){
+            if(item == curitem){
+                curitem += item;
+            }else{
+                cout << curitem << endl;
+                curitem = item;
+            }
+        }
+        cout << item << endl;
+    }else{
         cerr << "no data" << endl;
     }
 }
