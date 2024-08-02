@@ -1,0 +1,22 @@
+{
+    "sites":[
+        {
+            "site":{
+                "name":"王道论坛",
+                "url":"www.cskaoyan.com"
+            }
+        },
+        {
+            "site":{
+                "name":"google",
+                "url":"www.google.com"
+            }
+        },
+        {
+            "site":{
+                "name":"微博",
+                "url":"www.weibo.com"
+            }
+        }
+    ]
+}
