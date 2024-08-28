@@ -1,5 +1,4 @@
 #include "mai.h"
-#include <54func.h>
 
 using namespace std;
 
