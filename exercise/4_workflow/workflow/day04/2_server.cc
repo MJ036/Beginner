@@ -15,12 +15,18 @@ void handler(int signum){
 
 void process(WFHttpTask *serverTask){
     cout << "process is called!\n";
-    protocol::HttpResponse * resp = serverTask->get_resp();
-    resp->set_http_version("HTTP/1.1");
-    resp->set_status_code("200");
-    resp->set_reason_phrase("OK");
-    resp->set_header_pair("Content-type","text/html");
-    resp->append_output_body("<html>hello</html>");
+    serverTask->set_callback(
+            [](WFHttpTask *serverTask){
+            cout << "callback is called!\n";
+            protocol::HttpResponse * resp = serverTask->get_resp();
+            resp->set_http_version("HTTP/1.1");
+            resp->set_status_code("200");
+            resp->set_reason_phrase("OK");
+            resp->set_header_pair("Content-type","text/html");
+            // workflow框架会自动加首部字段 connection content-length
+            resp->append_output_body("<html>hello</html>");
+            }
+     );
 }
 
 
