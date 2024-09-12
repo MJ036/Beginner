@@ -43,43 +43,43 @@ public:
     }
 };
 
-class solution_agagi{
-public:
+
+
+class Solution3{
     class Myqueue{
+        deque<int> que;
     public:
         void pop(int value){
-            if(!que.empty() && value == que.front()){
+            if(!que.empty() && que.front() == value){
                 que.pop_front();
             }
         }
+
         void push(int value){
-            while(!que.empty() && value > que.front()){
+            while(!que.empty() && que.back() < value){
                 que.pop_back();
             }
             que.push_back(value);
         }
-
+        
         int front(){
             return que.front();
         }
-    private:
-            deque<int> que;
-
     };
 
 public:
-    vector<int> MaxSlidingWindows(vector<int>& nums, int k){
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        vector<int> result;
         Myqueue que;
-        vector<int> max;
-        for(int i = 0; i < k; i++){
+        for(int i = 0; i < k; ++i){
             que.push(nums[i]);
         }
-        for(int i = k; i <(int) nums.size(); i++){
+        result.push_back(que.front());
+        for(int i = k; i < nums.size(); ++i){
             que.pop(nums[i-k]);
             que.push(nums[i]);
-            max.push_back(que.front());
+            result.push_back(que.front());
         }
-        return max;
-
+        return result;
     }
 };
