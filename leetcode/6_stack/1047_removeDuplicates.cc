@@ -21,3 +21,19 @@ public:
         return result;
     }
 };
+
+class solution2{
+public:
+string removeDuplicates(string s){
+    string result;
+    for(char c : s){
+        if(result.empty() || c != result.back()){
+            result.push_back(c);
+        }
+        else{
+            result.pop_back();
+        }
+    }
+    return result;
+}
+};
