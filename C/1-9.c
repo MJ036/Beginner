@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int main()
+void test1()
 {
     int c;
     int ns = 0;
@@ -19,6 +19,31 @@ int main()
             putchar(c);
         }
     }
+}
+
+void test2(){
+    int c;
+    int ns;
+    ns = 0;
+    while((c = getchar()) != EOF){
+        if(c == ' '){
+            ns++;
+        }
+        else{
+            ns = 0;
+        }
+        if(ns > 1){
+            ;
+        }
+        else{
+            putchar(c);
+        }
+    }
+}
+
+int main()
+{
+    test2();
     return 0;
 }
 
