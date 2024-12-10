@@ -36,4 +36,25 @@ public:
         }
         return dep;
     }
+    
+    int getdepth(TreeNode* node){
+        if(node == nullptr){
+            return 0;
+        } 
+        int left_depth = getdepth(node->left);
+        int right_depth = getdepth(node->right);
+        if(node->left ==nullptr && node->right != nullptr){
+            return 1 + right_depth;
+        }
+        if(node->left !=nullptr && node->right == nullptr){
+            return 1 + left_depth;
+        }
+        int depth =  1 + min(left_depth,right_depth);
+        return depth;
+    }
+
+    int minDepth_recursive(TreeNode* root){
+        return  getdepth(root);
+    }
+
 };
