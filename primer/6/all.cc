@@ -26,13 +26,110 @@ void test_7(){
     cnt++;
 }
 
-int main()
-{
-    test_3();
-    test_5();
-    for(int i = 0; i < 10; i++){
-        test_7();
+int test_21(int a,int *p){
+    return a > *p ? a :*p;
+
+}
+void test_22( int * &a, int * &b){
+    int *temp = a;
+    a = b;
+    b = temp;
+
+}
+
+void test_23_0( int* i){
+    cout << *i << endl;
+
+}
+void test_23_1( int j[],int length){
+    for(int i = 0; i < length; ++i){
+        cout << j[i] << " ";
+    }
+    cout << endl;
+}
+void test_23_2(int* beg, int* end){
+    while(beg != end){
+        cout << *beg++ << " " ;
+    }
+    cout << endl;
+}
+void test_23_3( int (&arr)[2]){
+    for(auto num : arr){
+        cout << num << " ";
+    }
+    cout << endl;
+
+}
+
+void test_23(){
+    cout << "23" << endl;
+    int j[2]= {0,1};
+    test_23_1(j,2);
+    test_23_2(begin(j),end(j));
+    test_23_3(j);
+}
+
+int  test_27(initializer_list<int> il){
+    int sum = 0;
+    for(auto num : il){
+        sum += num;
+    }
+    return sum;
+}
+
+bool test_30(const string str1, const string str2){
+    if(str1.size() == str2.size()){
+        return str1 == str2;
+    }
+    auto size = str1.size() < str2.size() ? str1.size() : str2.size();
+    for(decltype(size) i = 0; i != size; i++){
+        if(str1[i] != str2[i]){
+    //        return;
+        }
     }
     return 0;
+}
+
+
+void test_33(vector<int>::iterator beg,vector<int>::iterator end){
+    if(beg != end){
+        cout << *beg << endl;
+        return test_33(beg+1,end);
+    }
+    cout << endl;
+    return;
+
+}
+
+//6_36
+string (&func_36(void))[10];
+
+//6_37
+typedef string(& pstr)[10];
+pstr func_37_1();
+
+auto func_37_2() -> string(&)[10];
+
+void test_37_3(){
+    string str[10];
+    decltype(str) &test();
+}
+
+int odd[] = {1,3,5,7,9};
+int even[] = {2,4,6,8,10};
+decltype(odd)& test_38(int i){
+    return (i%2)?even:odd;
+
+}
+
+int main()
+{
+   // vector<int> vec = {1,2,3,4,5,6};
+   // test_33(vec.begin(),vec.end());
+    for(auto num : test_38(4)){
+        cout << num << " ";
+    }
+    cout << endl;
+        
 }
 
