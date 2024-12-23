@@ -37,3 +37,17 @@ public:
 
 };
 
+class Solution1{
+    int getHight(TreeNode* node){
+        if(node == nullptr){
+            return 0;
+        }
+        if(abs(getHight(node->right)-getHight(node->left)) > 1){
+            return -1;
+        }
+        return max(getHight(node->right),getHight(node->left));
+    }
+    bool isBalanced(TreeNode* root){
+        return getHight(root) == -1 ? false : true;
+    }
+};
