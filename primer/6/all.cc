@@ -98,7 +98,6 @@ void test_33(vector<int>::iterator beg,vector<int>::iterator end){
     }
     cout << endl;
     return;
-
 }
 
 //6_36
@@ -122,14 +121,94 @@ decltype(odd)& test_38(int i){
 
 }
 
-int main()
-{
-   // vector<int> vec = {1,2,3,4,5,6};
-   // test_33(vec.begin(),vec.end());
-    for(auto num : test_38(4)){
-        cout << num << " ";
+//test_42
+string make_plural(size_t ctr,const string &word,const string &ending = "s"){
+    return (ctr > 1) ? word + ending : word;
+}
+
+//test_44
+inline bool isShorter(const string &str1, const string &str2){
+    return str1.size() < str2.size();
+}
+
+//test_46 str1.size() < str2.size()不是常量表达式，所以非法的
+//constexpr  bool isShorter2(const string &str1, const string &str2){
+//    return str1.size() < str2.size();
+//}
+
+void test_47(vector<int>::iterator beg,vector<int>::iterator end){
+    #ifndef NDEBUG
+		std::cerr  << __func__ << " " << __FILE__ << " "
+		<< __LINE__ << " " << __TIME__ << " " << __DATE__ << std::endl;
+	#endif
+    if(beg != end){
+        cout << *beg << endl;
+        return test_47(beg+1,end);
+    }
+    return;
+}
+
+//test_51 
+void f(){
+    cout << "f()" << endl;
+}
+void f(int){
+    cout << "f(int)" << endl;
+}
+void f(int,int){
+    cout << "f(int,int)" << endl;
+}
+void f(double,double = 3.14){
+    cout << "f(double,double = 3.14)" << endl;
+}
+
+typedef int func54(int,int);
+int funcAdd(int a,int b){
+    return a+b;
+}
+int funcSub(int a,int b){
+    return a-b;
+}
+int funcDiv(int a,int b){
+    return a/b;
+}
+int funcMul(int a,int b){
+    return a*b;
+}
+void test_54(){
+    vector<func54*> vec;
+    vec.push_back(funcAdd);
+    vec.push_back(funcSub);
+    vec.push_back(funcMul);
+    vec.push_back(funcDiv);
+    int a = 15,b = 3;
+    for(auto num : vec){
+        cout << num(a,b) << endl;
     }
     cout << endl;
+}
+
+int main()
+{
+    //vector<int> vec = {1,2,3,4,5,6};
+    //test_47(vec.begin(),vec.end());
+//
+//    for(auto num : test_38(4)){
+//        cout << num << " ";
+//    }
+//    cout << endl;
+//    cout<<endl;
+
+//    cout << make_plural(2,"success","es") << endl;
+//    cout << make_plural(2,"failure") << endl;
+//    
+//    int a = 1,b = 2;
+//    double c = 1.1 , d = 1.2;
+//    f();
+//    f(c,d);
+//    f(a,b);
+//    f(a);
+    test_54();
         
 }
 
