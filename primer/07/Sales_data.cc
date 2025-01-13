@@ -26,6 +26,7 @@ public:
 
     Sales_data& combine(const Sales_data &rhs);
     string isbn()const;
+
 private:
     string BookNo;
     unsigned units_sold = 0;
@@ -36,6 +37,12 @@ friend istream& read(istream& is, Sales_data& rhs);
 friend ostream& print(ostream& os, Sales_data rhs);
 
 };
+
+//10_12
+bool compareIsbn(Sales_data lhs, Sales_data rhs){
+    return lhs.isbn() < rhs.isbn();
+}
+
 Sales_data& Sales_data::combine(const Sales_data &rhs){
         units_sold += rhs.units_sold;
         revenue += rhs.revenue;
@@ -155,12 +162,16 @@ void test_13(){
 
 int main()
 {
-    Sales_data obj1;
+    vector<Sales_data> vec;
+    vec.push_back(Sales_data("003"));
+    vec.push_back(Sales_data("009"));
+    vec.push_back(Sales_data("002"));
+    vec.push_back(Sales_data("001"));
+    sort(vec.begin(),vec.end(),compareIsbn);
+    for(auto num : vec){
+        cout << num.isbn() << " ";
+    }
     cout << endl;
-    Sales_data obj2("s");
-    cout << endl;
-    Sales_data obj3(cin);
-    sleep(10);
     return 0;
 }
 
