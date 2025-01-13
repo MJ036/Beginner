@@ -34,6 +34,7 @@
 #include <signal.h>
 
 #include <sys/time.h>
+//
 #include <pthread.h>
 #include <netdb.h>
 #include <sys/socket.h>
@@ -45,29 +46,37 @@
 #include <crypt.h>
 #include <mysql/mysql.h>
 #include <openssl/evp.h>
-
 #define ARGS_CHECK(argc,num) {if((argc) != num) {fprintf(stderr,"argc error!\n");exit(-1);}}
 #define ERROR_CHECK(ret,num,msg) {if(ret == num) {perror(msg);exit(-1);}}
 #define THREAD_ERROR_CHECK(ret,msg) {if(ret!=0){\
 fprintf(stderr,"%s:%s\n",msg,strerror(ret));exit(0);}}
-
 #define SIZE(a) (sizeof(a)/sizeof(a[0]))
-#define MAXSIZE 1024
+    //
 //C++阶段使用
+#include <memory>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+
+#include <string>
+#include <vector>
+#include <deque>
+#include <array>
+#include <list>
+
+#include <forward_list>
+#include <queue>
+#include <stack>
+
+#include <map>
+#include <set>
+#include <unordered_set>
+#include <unordered_map>
+
+#include <algorithm>
+#include <numeric>
+
+#include <mutex>
 
 
-//#include <memory>
-//#include <iostream>
-//#include <queue>
-//#include <stack>
-//#include <string>
-//#include <vector>
-//#include <unordered_set>
-//#include <unordered_map>
-//
-//#include <algorithm>
-//
-//#include <mutex>
-//
-//
-//#include <hiredis/hiredis.h>
+#include <hiredis/hiredis.h>
