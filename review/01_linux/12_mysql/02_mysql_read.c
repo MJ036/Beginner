@@ -4,12 +4,12 @@
 int main(int argc, char* argv[])
 {
     MYSQL* mysql = mysql_init(NULL);
-    MYSQL* cret = mysql_real_connect(mysql,"localhost","root","123","test",0,NULL,0);
+    MYSQL* cret = mysql_real_connect(mysql,"localhost","root","11111111","my_test",0,NULL,0);
     if(cret == NULL){
         fprintf(stderr,"mysql_real_connect:%s\n",mysql_error(mysql));
         return -1;
     }
-    char sql[4096] = "select * from hero;";
+    char sql[4096] = "select * from Student;";
     int qret = mysql_query(mysql,sql);
     if(qret != 0){
         fprintf(stderr,"mysql_query:%s\n",mysql_error(mysql));
