@@ -1,11 +1,8 @@
 #include "mai.h"
 #include "/home/mai/Beginner/primer/07/Sales_data.h"
 #include <algorithm>
-#include <cctype>
-#include <istream>
 #include <map>
 #include <set>
-#include <utility>
 using namespace std;
 
 void test_4(){
@@ -168,9 +165,71 @@ void test_23(){
 
 }
 
+void test_26(){
+    map<int,int> m = {{1,11},{2,22}};
+    map<int,int>::key_type key = 1;
+    map<int,int>::mapped_type ret = m[key];
+    cout << ret << endl;
+}
+
+void test_29(){
+    map<string,vector<int>> m = {{"mai",{1,2,3}},{"jia",{4,5,6}},{"bao",{7,8,9}}};
+    auto fd = m.find("mai");
+    for(auto num : fd->second){
+        cout << num << " ";
+    }
+    cout <<endl;
+}
+void test_31(){
+    multimap<string,string> authors{
+        {"mai","a"},
+            {"jia","b"},
+            {"bao","c"},
+            {"mai","d"},
+            {"bao","e"}
+    };
+    string author = "mai";
+    string work = "d";
+    auto cnt = authors.count(author);
+    auto found = authors.find(author);
+    while(cnt){
+        if(found->second == work){
+            authors.erase(found);
+            break;
+        }
+        ++found;
+        --cnt;
+    }
+
+    for(const auto &author : authors){
+        cout << author.first << " " << author.second << endl;
+    }
+}
+void test_32(){
+    multimap<string,string> authors{
+            {"mai","a"},
+            {"jia","b"},
+            {"bao","c"},
+            {"mai","d"},
+            {"bao","e"},
+            {"bao","a"}
+    };
+    map<string,multiset<string>> order_authors;
+    for(auto author : authors){
+        order_authors[author.first].insert(author.second);
+    }
+    for(auto author : order_authors){
+        cout << author.first << ": ";
+        for(auto work : author.second){
+            cout << work << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main()
 {
-    test_20();
+    test_32();
 
     return 0;
 }
