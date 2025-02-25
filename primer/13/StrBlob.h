@@ -21,6 +21,7 @@ public:
     bool empty() const {return data->empty();};
     //添加删除元素
     void push_back(const std::string &t){data->push_back(t);};
+    void push_back(std::string && rhs){data->push_back(std::move(rhs));}
     void pop_back();
     //访问元素
     std::string& front();
@@ -43,11 +44,14 @@ class StrBlobPtr{
 public:
     StrBlobPtr():curr(0){}
     StrBlobPtr(StrBlob &a, size_t sz = 0):wptr(a.data),curr(sz){}
+
     bool operator!=(const StrBlobPtr&p){return p.curr != curr;}
+
     string &deref()const{
         auto p = check(curr,"deference past end");
         return (*p)[curr];
     }
+
     StrBlobPtr& incr(){
         check(curr,"increment past end of StrBlobPtr");
         ++curr;

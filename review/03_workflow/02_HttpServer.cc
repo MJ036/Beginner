@@ -106,7 +106,7 @@ string HttpServer::response(){
 }
 
 void test(){
-    HttpServer httpserver("0.0.0.0",1280);
+    HttpServer httpserver("0.0.0.0",1234);
     httpserver.start();
     httpserver.recvAndShow();
     //处理浏览器响应，并返回html文件

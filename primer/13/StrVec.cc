@@ -23,6 +23,21 @@ StrVec& StrVec::operator=(const StrVec& rhs){
     _first_free = _cap = newdata.second;
     return *this;
 }
+StrVec::StrVec(StrVec&& rhs) noexcept
+    :_element(rhs._element),_first_free(rhs._first_free),_cap(rhs._cap)
+    {
+        rhs._element = rhs._first_free = rhs._cap = nullptr;
+    }
+StrVec& StrVec::operator=(StrVec&& rhs) noexcept{
+    if(this != &rhs){
+        free();
+        _element = rhs._element;
+        _first_free = rhs._first_free;
+        _cap = rhs._cap;
+        rhs._element = rhs._first_free = rhs._cap = nullptr;
+    }
+    return *this;
+}
 
 StrVec::~StrVec(){
     free();
@@ -38,13 +53,13 @@ pair<string*, string*> StrVec::alloc_n_copy(const string* b,const string* e){
 }
 
 void StrVec::free(){
-//    //如果_element为空，则什么都不做
-//    if(_element){
-//        for(auto p = _first_free; p != _element;){
-//            alloc.destroy(--p);
-//        }
-//        alloc.deallocate(_element,_cap - _element);
-//    }
+    //    //如果_element为空，则什么都不做
+    //    if(_element){
+    //        for(auto p = _first_free; p != _element;){
+    //            alloc.destroy(--p);
+    //        }
+    //        alloc.deallocate(_element,_cap - _element);
+    //    }
 
     //for_each + lambda实现
     //非静态成员要通过this去访问，所以要捕获this。但该代码段在该类的成员函数中，所以不捕获也可以

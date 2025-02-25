@@ -4,11 +4,15 @@
 #include "mai.h"
 #include <alloca.h>
 #include <iterator>
+#include <ostream>
 
 using namespace std;
 
 class String
 {
+    friend ostream& operator<<(ostream& os, const String& s);
+    friend bool operator==(const String& lhs, const String& rhs);
+    friend bool operator!=(const String& lhs, const String& rhs);
 public:
     String():_element(nullptr),_end(nullptr){
         cout << "String()" << endl;
@@ -18,6 +22,8 @@ public:
     String(String&&) noexcept;
     String& operator=(const String&);
     String& operator=(String&&) noexcept;
+    char& operator[](size_t n);
+    
     ~String();
 
     const char* c_str() const {
