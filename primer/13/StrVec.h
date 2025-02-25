@@ -17,7 +17,9 @@ public:
         _element(nullptr),_first_free(nullptr),_cap(nullptr){};
     StrVec(initializer_list<string>);
     StrVec(const StrVec&);
+    StrVec(StrVec&&) noexcept;
     StrVec& operator=(const StrVec&);
+    StrVec& operator=(StrVec&&) noexcept;
     ~StrVec();
 
     void push_back(const string&);
@@ -39,6 +41,7 @@ private:
     pair<string*, string*> alloc_n_copy(const string*,const string*);
     void free();
     void reallocate();
+
     string *_element;
     string *_first_free;
     string *_cap;

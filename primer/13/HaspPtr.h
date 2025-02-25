@@ -12,6 +12,11 @@ public:
     HasPtr(const HasPtr & hp):ps(new string(*hp.ps)),i(hp.i),use(hp.use){
         ++*use;
     }
+    HasPtr(HasPtr &&p)noexcept:ps(p.ps),i(p.i){
+        p.ps = nullptr;
+        std::cout << "call move constructor" << std::endl;
+
+    }
     
     //将原来指向的内存释放，并指向新的内存
     HasPtr& operator=(const HasPtr& hp){
@@ -28,6 +33,22 @@ public:
         use = hp.use;
         return *this;
     }
+
+//    HasPtr& operator=(HasPtr rhs){
+//        swap(*this,rhs);
+//        return *this;
+//    }
+    HasPtr& operator=(HasPtr&& rhs) noexcept{
+
+        if(this != &rhs){
+            ps = rhs.ps;
+            i = rhs.i;
+            rhs.ps = nullptr;
+            rhs.i = 0;
+        }
+        return *this;
+    }
+
     ~HasPtr(){
         if(!ps){
             delete ps;
@@ -44,9 +65,9 @@ private:
     int i;
     size_t* use;
 };
-    bool operator<(const HasPtr& lhs,const HasPtr &rhs){
-        return *lhs.ps < *rhs.ps;
-    }
+bool operator<(const HasPtr& lhs,const HasPtr &rhs){
+    return *lhs.ps < *rhs.ps;
+}
 
 inline void swap(HasPtr& lhs,HasPtr& rhs){
     std::swap(lhs.i,rhs.i);

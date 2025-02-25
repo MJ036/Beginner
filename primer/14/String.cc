@@ -1,5 +1,6 @@
 #include "String.h"
 #include <algorithm>
+#include <cstring>
 #include <memory>
 #include <openssl/evp.h>
 
@@ -23,6 +24,7 @@ String::String(const char* s){
     while(*s1){
         ++s1;
     }
+    //range_initializer的第二个参数，是为了把C风格字符串末尾的'\0'也拷贝过去
     range_initializer(s,++s1);
     cout << "String(const char* s)" << endl;
 }
@@ -71,4 +73,20 @@ String& String::operator=(String&& rhs) noexcept{
         rhs._element = rhs._end = nullptr;
     }
     return *this;
+}
+ostream& operator<<(ostream& os, const String& s){
+    for(auto b = s._element;b != s._end;b++){
+        os << *b;
+    }
+    return os;
+}
+bool operator==(const String& lhs, const String& rhs){
+    return !strcmp(lhs.c_str(),rhs.c_str());
+
+}
+bool operator!=(const String& lhs, const String& rhs){
+   return !(lhs == rhs);
+}
+char& String::operator[](size_t n){
+    return *(_element + n);
 }
