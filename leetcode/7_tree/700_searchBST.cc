@@ -14,16 +14,14 @@ using namespace std;
  
 class Solution {
 public:
-    TreeNode* pre = nullptr;
-    bool isValidBST(TreeNode* root) {
-        if(root == nullptr) return true;
-
-        auto left = isValidBST(root->left);
-        if(pre != nullptr && pre->val >= root->val){
-            return false;
+    TreeNode* searchBST(TreeNode* root, int val) {
+        if(root == nullptr) return nullptr;
+        if(root->val == val){
+            return root;
+        }else if(root->val > val){
+            return searchBST(root->left,val);
+        }else{
+            return searchBST(root->right,val);
         }
-        pre = root;
-        auto right = isValidBST(root->right);
-        return left && right;
     }
 };
